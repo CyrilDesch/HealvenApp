@@ -23,6 +23,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.cyrild69.tracks",
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyCWdWP10Lx4EEmwt_7Fsb5Ud8s06iZG9Wg" }   
       }
     },
     "web": {
