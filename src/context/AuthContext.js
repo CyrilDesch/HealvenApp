@@ -24,34 +24,42 @@ const removeError = (dispatch) => () => {
   dispatch({type: 'remove_error'});
 };
 
-const signup = (dispatch) => async ({ email, password }) => {
+const signup = (dispatch) => async ({ email, password, saveUser }) => {
   try {
     const resp = await trackerApi.post('/signup', {email, password});
     await AsyncStorage.setItem('token', resp.data.token);
+    saveUser(resp.data.returnUser);
     dispatch({type: 'signup', payload: resp.data.token});
-    navigate('TrackList');
+    navigate('UserConfig');
   } catch (err) {
     dispatch({type: 'add_error', payload: "Une erreur est survenue"});
   } 
 };
 
-const signin = (dispatch) => async ({ email, password }) => {
+const signin = (dispatch) => async ({ email, password, saveUser }) => {
   try {
     const resp = await trackerApi.post('/signin', {email, password});
     await AsyncStorage.setItem('token', resp.data.token);
+    saveUser(resp.data.returnUser);
     dispatch({type: 'signin', payload: resp.data.token});
     navigate('TrackList');
   } catch (err) {
-    console.log(err);
     dispatch({type: 'add_error', payload: "Une erreur est survenue"});
   } 
 };
 
-const tryLocalSignIn = (dispatch) => async () => {
+const tryLocalSignIn = (dispatch) => async ({ saveUser }) => {
   const token = await AsyncStorage.getItem('token');
   if (token){
-    dispatch({type: 'signin', token});
-    navigate('TrackList');
+    try {
+      const resp = await trackerApi.get('/user');
+      saveUser(resp.data.returnUser);
+      dispatch({type: 'signin', token});
+      navigate('TrackList');
+    } catch(err) {
+      console.log(err);
+      navigate('Signup');
+    }
   } else {
     navigate('Signup');
   }
@@ -60,6 +68,7 @@ const tryLocalSignIn = (dispatch) => async () => {
 const signout = (dispatch) => async () => {
   try {
     await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('user');
     dispatch({type: 'signout'});
     navigate('Signin');
   } catch (err) {

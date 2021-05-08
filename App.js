@@ -16,6 +16,7 @@ import { setNavigator } from './src/navigationRef';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as LocationProvider } from './src/context/LocationContext';
 import { Provider as TrackProvider } from './src/context/TrackContext';
+import { Provider as UserProvider } from './src/context/UserContext';
 import * as Font from 'expo-font';
 
 const fetchFonts = () => {
@@ -35,6 +36,7 @@ const fetchFonts = () => {
 const signStackNavigator = createStackNavigator({
   Signup: SignupScreen,
   Signin: SigninScreen,
+  UserConfig: UserConfigScreen,
 });
 
 const bottomBarNavigator = createBottomTabNavigator({
@@ -42,7 +44,6 @@ const bottomBarNavigator = createBottomTabNavigator({
     TrackList: TrackListScreen,
     TrackDetail: TrackDetailScreen
   }),
-  UserConfig: UserConfigScreen,
   TrackCreate: TrackCreateScreen,
   Account: AccountScreen
 });
@@ -70,11 +71,13 @@ export default () => {
   return(
     <SafeAreaProvider>
       <AuthProvider>
-        <LocationProvider>
-          <TrackProvider>
-            <App ref={setNavigator} />
-          </TrackProvider>  
-        </LocationProvider>
+        <UserProvider>
+          <LocationProvider>
+            <TrackProvider>
+              <App ref={setNavigator} />
+            </TrackProvider>  
+          </LocationProvider>
+        </UserProvider>
       </AuthProvider>
     </SafeAreaProvider>
   );

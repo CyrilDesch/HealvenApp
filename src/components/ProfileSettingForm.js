@@ -1,71 +1,76 @@
-import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, Text, Pressable } from 'react-native';
 import Input from '../components/simpleComponents/Input';
 import Spacer from './Spacer';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Image } from "react-native-expo-image-cache";
-import { token, baseURL } from '../api/tracker';
 import generalStyles from '../generalStyles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import ChangeImageProfile from './formComponent/ChangeImageProfile';
+import DatePicker from './formComponent/DatePicker';
+import GenderSelector from './formComponent/GenderSelector';
+import { Context as UserContext } from '../context/UserContext';
 
-const ProfileSettingForm = ({ imageProfile, name, dateOfBirth, gender, email, password }) => {
+const ProfileSettingForm = ({ showImage, showName, showDate, showGender, callback }) => {
+  const { state, updateUser } = useContext(UserContext);
+  const [image, setImage] = useState(null);
+  const [name, setName] = useState(state.name);
+  const [date, setDate] = useState(state.dateOfBirth);
+  const [gender, setGender] = useState(state.gender);
 
-  const imageProfileView =
-    <View>
-      {token !== '' ? <Image style={styles.imageProfile} resizeMode="contain" {...{uri: baseURL + '/image?id=' + '1619803735074-bezkoder-unnamed.png' + `&token=${token}`, options: {method: 'GET'}}} /> : null }
-      <View style={styles.iconCameraContainer}>
-        <Icon name="camera" size={wp(5)} color="#8598f9" />
-      </View>
-    </View>;
-
-  const dateOfBirthView =
-    <View>
-      <Text>Test3</Text>
-    </View>;
-
-  const genderView =
-    <View>
-      <Text>Test4</Text>
-    </View>;
-
-  const emailView =
-    <View>
-      <Text>Test5</Text>
-    </View>;
-
-  const passwordView =
-    <View>
-      <Text>Test6</Text>
-    </View>;
-  
   return (
-    <View style={styles.container}>
-      <Spacer multiple={4}>
-        {imageProfile ? imageProfileView : null}
-      </Spacer>
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      enableAutomaticScroll
+      enableOnAndroid
+      scrollEnabled={false}>
+      <Spacer multiple={3}/>
+
+      {showImage ?
+        <>
+          <ChangeImageProfile defaultImageId={state.idProfilImage} image={image} setImage={setImage} /> 
+          <Spacer multiple={3} />
+        </>
+      : null}
+
+      {showName ?
+        <>
+          <Input style={generalStyles.input} label="Nom" value={name} onChangeText={setName} /> 
+          <Spacer multiple={1.5}/>
+        </>
+      : null}
+
+      {showDate ? 
+        <>
+          <DatePicker label="Date de naissance" date={date} setDate={setDate} />
+          <Spacer multiple={1.5}/>
+        </>
+      : null}
+      
+      {showGender ? 
+        <>
+          <GenderSelector gender={gender} setGender={setGender} />
+          <Spacer multiple={1.5}/>
+        </>
+      : null}
+
+      <Spacer multiple={2} />
+      <Pressable style={styles.buttonSubmit} onPress={async() => {
+        await updateUser({name, dateOfBirth: date, gender, idProfilImage: image});
+        callback();
+      }}>
+        <Text style={styles.textSubmit}>Valider</Text>
+      </Pressable>
       <Spacer multiple={3} />
-        {name ? <Input style={generalStyles.input} label="Nom" value="Cyril Deschamps" /> : null}
-      <Spacer />
-        {dateOfBirth ? <Input style={generalStyles.input} label="Date de naissance" value="19/06/2002" /> : null}
-      <Spacer />
-        {gender ? <Input style={generalStyles.input} label="Genre" value="Homme" /> : null}
-      <Spacer />
-        {email ? emailView : null}
-      <Spacer/>
-        {password ? passwordView : null}
-      <Spacer />
-        <Button title="Valider" />
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
 ProfileSettingForm.defaultProps = {
-  imageProfile: false,
-  name: false,
-  dateOfBirth: false,
-  gender: false,
-  email: false,
-  password: false
+  showImage: false,
+  showName: false,
+  showDate: false,
+  showGender: false
 };
 
 const styles = StyleSheet.create({
@@ -73,49 +78,17 @@ const styles = StyleSheet.create({
     width: wp(100),
     alignItems: 'center',
   },
-  errorMessage: {
-    fontSize: 15,
-    alignSelf: 'center',
-    color: 'red'
-  },
-  logo: {
-    width: wp(40),
-    height: wp(40),
-    alignSelf: 'center',
-  },
-  imageProfile: {
-    width: wp(25), 
-    height: wp(25), 
-    borderRadius: wp(3),
-    borderColor: 'white',
-    borderWidth: wp(0.2),
-    backgroundColor: '#d9dffc',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.39,
-    shadowRadius: 8.30,
-    elevation: 13,
-  },
-  iconCameraContainer: {
-    position: 'absolute',
-    right: -wp(3.5),
-    bottom: -wp(3.5),
-    padding: wp(1.5),
-    backgroundColor: '#d9dffc',
+  buttonSubmit: {
+    paddingVertical: wp(4),
+    paddingHorizontal: wp(5),
     borderRadius: wp(2),
-    borderColor: 'white',
-    borderWidth: wp(0.6),
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.39,
-    shadowRadius: 8.30,
-    elevation: 13,
+    borderWidth: 1,
+    backgroundColor: '#13385e',
+  },
+  textSubmit: {
+    fontSize: wp(4),
+    fontFamily: 'Montserrat-Medium',
+    color: 'white',
   },
 });
 

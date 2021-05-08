@@ -1,29 +1,30 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
-import { Context as AuthContext } from '../../context/AuthContext';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import ProfileSettingForm from '../../components/ProfileSettingForm';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderBar from '../../components/HeaderBar';
+import { ScrollView } from 'react-native-gesture-handler';
 
-const UserConfigScreen = () => {
-
+const UserConfigScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderBar title="Information" />
-      <ProfileSettingForm 
-        imageProfile 
-        name 
-        dateOfBirth
-        gender
-      />
+      <ScrollView>
+        <HeaderBar title="Information" />
+        <ProfileSettingForm  
+           showImage
+           showName
+           showDate
+           showGender
+           callback={() => navigation.navigate('TrackList')}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 UserConfigScreen.navigationOptions = () => {
   return {
-    title: 'Information',
-    headerShown: true,
+    headerShown: false,
   };
 };
 

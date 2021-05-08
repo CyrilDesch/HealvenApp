@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-export const baseURL = 'https://133d6500acf0.ngrok.io';
-
+export const baseURL = 'https://healven.herokuapp.com';
 const instance = axios.create({baseURL});
 
 export let token;

@@ -3,6 +3,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 const generalStyles = StyleSheet.create({
   screenTitle: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 30,
   },
   clickableText : {
@@ -12,6 +13,24 @@ const generalStyles = StyleSheet.create({
   },
   input: {
     width: wp(80),
+  },
+  text: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: wp(4),
+    marginBottom: hp(1),
+    color: '#4e6a86',
+  },
+  textInput: {
+    fontFamily: 'Montserrat-Medium',
+    width: wp(80),
+    fontSize: wp(4.5),
+    paddingVertical: wp(4),
+    paddingHorizontal: wp(5),
+    borderRadius: wp(2),
+    borderWidth: 1,
+    borderColor: 'gray',
+    color: '#13385e',
+    backgroundColor: '#f1f3fd',
   }
 });
 

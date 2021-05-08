@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, TextInput, Image, Button } from 'react-native';
 import generalStyles from '../generalStyles';
 import Spacer from './Spacer';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Input from './simpleComponents/Input';
+import { Context as UserContext } from '../context/UserContext';
 
 const AuthForm = ({ errorMessage, headerMessage, submitText, onSubmitAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { saveUser } = useContext(UserContext);
   
   return (
     <View style={styles.container}>
@@ -31,7 +33,7 @@ const AuthForm = ({ errorMessage, headerMessage, submitText, onSubmitAuth }) => 
       />
       {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
       <Spacer>
-        <Button title={submitText} onPress={() => onSubmitAuth({email, password})} />
+        <Button title={submitText} onPress={() => onSubmitAuth({email, password, saveUser})} />
       </Spacer>
     </View>
   );
