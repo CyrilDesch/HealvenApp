@@ -18,6 +18,7 @@ import { Provider as LocationProvider } from './src/context/LocationContext';
 import { Provider as TrackProvider } from './src/context/TrackContext';
 import { Provider as UserProvider } from './src/context/UserContext';
 import * as Font from 'expo-font';
+import HomeScreen from './src/screens/Auth/HomeScreen';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -39,19 +40,18 @@ const signStackNavigator = createStackNavigator({
   UserConfig: UserConfigScreen,
 });
 
-const bottomBarNavigator = createBottomTabNavigator({
-  Track: createStackNavigator({
-    TrackList: TrackListScreen,
-    TrackDetail: TrackDetailScreen
-  }),
+const mainStackNavigator = createStackNavigator({
+  Home: HomeScreen,
+  Account: AccountScreen,
+  TrackList: TrackListScreen,
+  TrackDetail: TrackDetailScreen,
   TrackCreate: TrackCreateScreen,
-  Account: AccountScreen
 });
 
 const switchNavigator = createSwitchNavigator({
   WaitAuth: WaitAuthScreen,
   loginFlow: signStackNavigator,
-  mainFlow: bottomBarNavigator,
+  mainFlow: mainStackNavigator,
 });
 
 const App = createAppContainer(switchNavigator);

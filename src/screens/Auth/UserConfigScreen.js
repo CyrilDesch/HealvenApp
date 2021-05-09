@@ -15,7 +15,7 @@ const UserConfigScreen = ({ navigation }) => {
            showName
            showDate
            showGender
-           callback={() => navigation.navigate('TrackList')}
+           callback={() => navigation.navigate('Home')}
         />
       </ScrollView>
     </SafeAreaView>

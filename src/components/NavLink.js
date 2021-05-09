@@ -10,9 +10,9 @@ const NavLink = ({ navigation, routeName, text, cleaner }) => {
       navigation.navigate(routeName);
       if (cleaner) {
         cleaner();
-      }
-    }}>
-        <Text style={generalStyles.clickableText}>{text}</Text>
+      }}
+    }>
+      <Text style={generalStyles.clickableText}>{text}</Text>
     </TouchableOpacity>
   );
 };

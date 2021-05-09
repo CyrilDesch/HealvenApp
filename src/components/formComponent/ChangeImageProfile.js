@@ -7,7 +7,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Pressable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-const ChangeImageProfile = ({ defaultImageId, image, setImage }) => {
+const ChangeImageProfile = ({ defaultImageId, image, setImage, disable }) => {
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
@@ -27,7 +27,7 @@ const ChangeImageProfile = ({ defaultImageId, image, setImage }) => {
   };
   
   return(
-    <Pressable onPress={pickImage}>
+    <Pressable disabled={disable} onPress={pickImage}>
 
       {!image && defaultImageId && defaultImageId != "" ? 
         <CacheImage style={styles.imageProfile} resizeMode="contain" {...{uri: baseURL + '/image?id=' + defaultImageId + `&token=${token}`, options: {method: 'GET'}}} /> 

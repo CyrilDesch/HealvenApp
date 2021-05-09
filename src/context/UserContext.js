@@ -1,6 +1,5 @@
 import createDataContext from '../context/createDataContext';
 import trackerApi, { token, baseURL } from '../api/tracker';
-import convertBase64toFormData from '../helpers/convertBase64toFormData';
 import * as FileSystem from 'expo-file-system';
 
 const userReducer = (state, action) => {

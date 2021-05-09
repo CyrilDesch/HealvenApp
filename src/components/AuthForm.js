@@ -31,7 +31,7 @@ const AuthForm = ({ errorMessage, headerMessage, submitText, onSubmitAuth }) => 
         value={password} 
         onChangeText={setPassword}
       />
-      {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+      {errorMessage ? <Text style={generalStyles.error}>{errorMessage}</Text> : null}
       <Spacer>
         <Button title={submitText} onPress={() => onSubmitAuth({email, password, saveUser})} />
       </Spacer>
@@ -42,11 +42,6 @@ const AuthForm = ({ errorMessage, headerMessage, submitText, onSubmitAuth }) => 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-  },
-  errorMessage: {
-    fontSize: 15,
-    alignSelf: 'center',
-    color: 'red'
   },
   logo: {
     width: wp(40),

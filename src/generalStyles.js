@@ -23,7 +23,7 @@ const generalStyles = StyleSheet.create({
   textInput: {
     fontFamily: 'Montserrat-Medium',
     width: wp(80),
-    fontSize: wp(4.5),
+    fontSize: wp(4.2),
     paddingVertical: wp(4),
     paddingHorizontal: wp(5),
     borderRadius: wp(2),
@@ -31,6 +31,15 @@ const generalStyles = StyleSheet.create({
     borderColor: 'gray',
     color: '#13385e',
     backgroundColor: '#f1f3fd',
+  },
+  disable: {
+    backgroundColor: '#E3E4EE',
+  },
+  error: {
+    marginTop: hp(0.5),
+    fontFamily: 'Montserrat-Regular',
+    fontSize: wp(3.5),
+    color: 'red',
   }
 });
 

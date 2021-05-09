@@ -1,19 +1,21 @@
 import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import generalStyles from '../../generalStyles';
 
-const Input = ({ style, label, value, onChangeText, secureTextEntry }) => {
+const Input = ({ style, label, value, onChangeText, secureTextEntry, error, disable }) => {
   return(
     <View>
-      <Text style={styles.text}>{label}</Text>
+      <Text style={generalStyles.text}>{label}</Text>
       <TextInput
-        style={[styles.textInput, style]} 
+        editable={!disable}
+        style={[generalStyles.textInput, style, disable ? generalStyles.disable : null]} 
         onChangeText={onChangeText}
         value={value}
         autoCapitalize="none"
         autoCorrect={false}
         secureTextEntry={secureTextEntry}
       />
+      {error != "" ? <Text style={generalStyles.error}>{error}</Text> : null}
     </View>
   );
 }
@@ -24,27 +26,9 @@ Input.defaultProps = {
   value: 'Give a state text',
   secureTextEntry: false,
   onChangeText: () => console.log('default'),
+  error: '',
+  disable: false,
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: 'Montserrat-Medium',
-    fontSize: wp(4),
-    marginBottom: hp(1),
-    color: '#4e6a86',
-  },
-  textInput: {
-    fontFamily: 'Montserrat-Medium',
-    fontSize: wp(4.5),
-    paddingVertical: wp(4),
-    paddingHorizontal: wp(5),
-    borderRadius: wp(2),
-    borderWidth: 1,
-    borderColor: 'gray',
-    color: '#13385e',
-    backgroundColor: '#f1f3fd',
-  }
-});
 
 export default Input;
 

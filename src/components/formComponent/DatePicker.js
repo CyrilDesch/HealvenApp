@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import generalStyles from '../../generalStyles';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const DatePicker = ({ label, date, setDate }) => {
+const DatePicker = ({ label, date, setDate, error, disable }) => {
   const [show, setShow] = useState(false);
 
   const onChangeDate = (selectedDate) => {
@@ -19,8 +19,8 @@ const DatePicker = ({ label, date, setDate }) => {
   return(
     <View>
       <Text style={generalStyles.text}>{label}</Text>
-      <TouchableOpacity onPress={() => setShow(!show)}>
-        <Text style={generalStyles.textInput}>{date ? date.toLocaleDateString() : 'Selectionner une date'}</Text>
+      <TouchableOpacity disabled={disable} onPress={() => setShow(!show)}>
+        <Text style={[generalStyles.textInput, disable ? generalStyles.disable : null]}>{date ? date.toLocaleDateString() : 'Selectionner une date'}</Text>
       </TouchableOpacity>
       <DateTimePickerModal
         mode="date"
@@ -32,6 +32,7 @@ const DatePicker = ({ label, date, setDate }) => {
         minimumDate={new Date(1910, 0, 1)}
         maximumDate={new Date(2010, 11, 31)}
       />
+      {error != "" ? <Text style={generalStyles.error}>{error}</Text> : null}
     </View>
   );
 }

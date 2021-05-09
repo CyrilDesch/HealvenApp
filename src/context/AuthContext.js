@@ -42,7 +42,11 @@ const signin = (dispatch) => async ({ email, password, saveUser }) => {
     await AsyncStorage.setItem('token', resp.data.token);
     saveUser(resp.data.returnUser);
     dispatch({type: 'signin', payload: resp.data.token});
-    navigate('TrackList');
+    if(!resp.data.returnUser.valid){
+      navigate('UserConfig');
+    } else {
+      navigate('Home');
+    }
   } catch (err) {
     dispatch({type: 'add_error', payload: "Une erreur est survenue"});
   } 
@@ -55,7 +59,11 @@ const tryLocalSignIn = (dispatch) => async ({ saveUser }) => {
       const resp = await trackerApi.get('/user');
       saveUser(resp.data.returnUser);
       dispatch({type: 'signin', token});
-      navigate('TrackList');
+      if(!resp.data.returnUser.valid){
+        navigate('UserConfig');
+      } else {
+        navigate('Home');
+      }
     } catch(err) {
       console.log(err);
       navigate('Signup');
