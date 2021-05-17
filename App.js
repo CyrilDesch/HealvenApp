@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import AppLoading from 'expo-app-loading';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
 import SignupScreen from './src/screens/Auth/SignupScreen';
 import SigninScreen from './src/screens/Auth/SigninScreen';
 import UserConfigScreen from './src/screens/Auth/UserConfigScreen';
@@ -11,14 +8,17 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailScreen from './src/screens/TrackDetailScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import WaitAuthScreen from './src/screens/Auth/WaitAuthScreen';
+import HomeScreen from './src/screens/HomeScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
-import { setNavigator } from './src/navigationRef';
+import { navigationRef } from './src/navigationRef';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as LocationProvider } from './src/context/LocationContext';
 import { Provider as TrackProvider } from './src/context/TrackContext';
 import { Provider as UserProvider } from './src/context/UserContext';
 import * as Font from 'expo-font';
-import HomeScreen from './src/screens/Auth/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StatusBar } from 'expo-status-bar';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -34,27 +34,84 @@ const fetchFonts = () => {
   });
 };
 
-const signStackNavigator = createStackNavigator({
-  Signup: SignupScreen,
-  Signin: SigninScreen,
-  UserConfig: UserConfigScreen,
-});
+const AppStackNavigator = createStackNavigator();
+const AuthStackNavigator = createStackNavigator();
+const MainStackNavigator = createStackNavigator();
 
-const mainStackNavigator = createStackNavigator({
-  Home: HomeScreen,
-  Account: AccountScreen,
-  TrackList: TrackListScreen,
-  TrackDetail: TrackDetailScreen,
-  TrackCreate: TrackCreateScreen,
-});
+const Auth = () => {
+  return(
+    <AuthStackNavigator.Navigator
+      screenOptions={{headerShown: false, gestureEnabled: false}}
+      
+    >
+      <AuthStackNavigator.Screen
+        name="WaitAuth"
+        component={WaitAuthScreen}
+      />
+      <AuthStackNavigator.Screen
+        name="Signup"
+        component={SignupScreen}
+      />
+      <AuthStackNavigator.Screen
+        name="Signin"
+        component={SigninScreen}
+      />
+      <AuthStackNavigator.Screen
+        name="UserConfig"
+        component={UserConfigScreen}
+      />
+    </AuthStackNavigator.Navigator>
+  );
+}
 
-const switchNavigator = createSwitchNavigator({
-  WaitAuth: WaitAuthScreen,
-  loginFlow: signStackNavigator,
-  mainFlow: mainStackNavigator,
-});
+const Main = () => {
+  return(
+    <MainStackNavigator.Navigator
+      screenOptions={{headerShown: false, gestureEnabled: false}}
+    >
+      <MainStackNavigator.Screen 
+        name="Home"
+        component={HomeScreen}
+      />
+      <MainStackNavigator.Screen 
+        name="Account"
+        component={AccountScreen}
+      />
+      <MainStackNavigator.Screen 
+        name="TrackList"
+        component={TrackListScreen}
+      />
+      <MainStackNavigator.Screen 
+        name="TrackDetail"
+        component={TrackDetailScreen}
+      />
+      <MainStackNavigator.Screen 
+        name="TrackCreate"
+        component={TrackCreateScreen}
+      />
+    </MainStackNavigator.Navigator>
+  );
+}
 
-const App = createAppContainer(switchNavigator);
+const App = () => {
+  return(
+    <NavigationContainer ref={navigationRef}>
+      <AppStackNavigator.Navigator
+        screenOptions={{headerShown: false, gestureEnabled: false}}
+      >
+        <AppStackNavigator.Screen
+          name="Auth"
+          component={Auth}
+        />
+        <AppStackNavigator.Screen
+          name="Main"
+          component={Main}
+        />
+      </AppStackNavigator.Navigator>
+    </NavigationContainer>
+  );
+}
+
 export default () => {
   const [dataLoaded, setDataLoaded] = useState(false);
 
@@ -74,7 +131,7 @@ export default () => {
         <UserProvider>
           <LocationProvider>
             <TrackProvider>
-              <App ref={setNavigator} />
+              <App />
             </TrackProvider>  
           </LocationProvider>
         </UserProvider>

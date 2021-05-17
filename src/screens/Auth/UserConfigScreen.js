@@ -1,13 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ProfileSettingForm from '../../components/ProfileSettingForm';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderBar from '../../components/HeaderBar';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const UserConfigScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <HeaderBar title="Information" />
         <ProfileSettingForm  
@@ -18,7 +17,7 @@ const UserConfigScreen = ({ navigation }) => {
            callback={() => navigation.navigate('Home')}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

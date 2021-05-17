@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: wp(3),
     borderColor: 'white',
     borderWidth: wp(0.2),
-    backgroundColor: '#d9dffc',
+    backgroundColor: '#4e6a86',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

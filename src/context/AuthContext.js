@@ -45,7 +45,7 @@ const signin = (dispatch) => async ({ email, password, saveUser }) => {
     if(!resp.data.returnUser.valid){
       navigate('UserConfig');
     } else {
-      navigate('Home');
+      navigate('Main', {screen: 'Home'});
     }
   } catch (err) {
     dispatch({type: 'add_error', payload: "Une erreur est survenue"});
@@ -62,7 +62,7 @@ const tryLocalSignIn = (dispatch) => async ({ saveUser }) => {
       if(!resp.data.returnUser.valid){
         navigate('UserConfig');
       } else {
-        navigate('Home');
+        navigate('Main', {screen: 'Home'});
       }
     } catch(err) {
       console.log(err);

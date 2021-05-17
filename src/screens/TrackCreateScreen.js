@@ -7,17 +7,15 @@ import Map from '../components/Map';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Context as LocationContext } from '../context/LocationContext'; 
 import useLocation from '../hooks/useLocation';
-import { withNavigationFocus } from 'react-navigation';
 import TrackForm from '../components/TrackForm';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-
-const TrackCreateScreen = ({ isFocused }) => {
+const TrackCreateScreen = ({ navigation }) => {
   const { addLocation, state: { recording } } = useContext(LocationContext);
   const callback = useCallback((location) => {
     addLocation(location, recording);
   }, [recording]);
-  const [err] = useLocation(isFocused || recording, callback);
+  const [err] = useLocation(navigation.isFocused || recording, callback);
   
   return (
     <SafeAreaView>
@@ -39,4 +37,4 @@ const TrackCreateScreen = ({ isFocused }) => {
 
 const styles = StyleSheet.create({});
 
-export default withNavigationFocus(TrackCreateScreen);
+export default TrackCreateScreen;

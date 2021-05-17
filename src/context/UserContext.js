@@ -38,7 +38,6 @@ const updateUser = (dispatch) => async(user) => {
   }
   try {
     await trackerApi.post('/modifyUser', user);
-    console.log('Succes');
     dispatch({ type: 'saveUser', payload: user});
   } catch (err) {
     console.log(err);

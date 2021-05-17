@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { requestPermissionsAsync, watchPositionAsync, Accuracy } from 'expo-location';
+import { requestForegroundPermissionsAsync, watchPositionAsync, Accuracy } from 'expo-location';
 
 export default (shouldTrack, callback) => {
   const [err, setErr] = useState('');
@@ -7,7 +7,7 @@ export default (shouldTrack, callback) => {
     let subscriber;
     const requestPermission = async () => {
       try {
-        const { granted } = await requestPermissionsAsync();
+        const { granted } = await requestForegroundPermissionsAsync();
         if (!granted) {
           throw new Error('Not authorized');
         }
