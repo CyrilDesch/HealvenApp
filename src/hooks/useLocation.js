@@ -14,7 +14,7 @@ export default (shouldTrack, callback) => {
         subscriber = await watchPositionAsync({
           accuracy: Accuracy.BestForNavigation,
           timeInterval: 1000,
-          distanceInterval: 10
+          distanceInterval: 0
           }, (location) => {
             callback(location);
           }

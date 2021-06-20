@@ -8,9 +8,12 @@ import { token, baseURL } from '../api/tracker';
 import {default as IconMaterialIcons} from 'react-native-vector-icons/MaterialIcons';
 import {default as IconFontAwesome5} from 'react-native-vector-icons/FontAwesome5';
 import Spacer from './Spacer';
+import { useNavigation } from '@react-navigation/native';
 
-const HeaderMenu = ({ insets }) => {
+const HeaderMenu = () => {
   const { state } = useContext(UserContext);
+  const navigation = useNavigation();
+  const metre = 10;
   return(
     <View style={styles.container}>
       <Svg style={styles.svp_path}>
@@ -23,7 +26,7 @@ const HeaderMenu = ({ insets }) => {
       <Spacer multiple={2} />
       <View style={styles.header_first_line_container}>
         {state.idProfilImage != "" ?
-          <CacheImage 
+          <CacheImage
             style={styles.profilImage} 
             resizeMode="contain"
             {...{uri: baseURL + '/image?id=' + state.idProfilImage + `&token=${token}`, options: {method: 'GET'}}} />
@@ -34,13 +37,20 @@ const HeaderMenu = ({ insets }) => {
           <Text style={styles.header_first_line_text_title1}>Bonjour</Text>
           <Text style={styles.header_first_line_text_title2}>{state.name}</Text>
         </View>
-        <IconMaterialIcons size={wp(9)} style={styles.header_first_line_icon} name="blur-on" />
+        <Pressable onPress={() => navigation.navigate('Account')}>
+          <IconMaterialIcons size={wp(9)} style={styles.header_first_line_icon} name="blur-on" />
+        </Pressable>
       </View>
       <View style={styles.header_second_line_container}>
         <View style={styles.header_second_line_walk_count}>
           <IconFontAwesome5 color="white" size={wp(5)} style={styles.header_second_line_walk_count_icon} name="walking" />
-          <Text style={styles.header_second_line_walk_count_title1}>4555</Text>
-          <Text style={styles.header_second_line_walk_count_title2}>pas</Text>
+          <Text style={styles.header_second_line_walk_count_title1}>{metre}</Text>
+          <Text style={styles.header_second_line_walk_count_title2}>{metre > 1 ? "mètres" : "mètre"}</Text>
+        </View>
+        <View style={styles.header_second_line_text_container}>
+          <Text style={styles.header_second_line_text_title}>Vitesse actuelle:  <Text style={styles.bold}>14.5 km/h</Text></Text>
+          <Text style={styles.header_second_line_text_title}>Vitesse moyenne:  <Text style={styles.bold}>16.8 km/h</Text></Text>
+          <Text style={styles.header_second_line_text_title}>Calories brûlés:  <Text style={styles.bold}>150 kcal</Text></Text>
         </View>
       </View>
     </View>
@@ -91,10 +101,10 @@ const styles = StyleSheet.create({
   },
   header_second_line_walk_count: {
     marginLeft: wp(5.5),
-    marginTop: wp(1.2),
+    marginTop: wp(2),
     width: wp(28),
     height: wp(28),
-    backgroundColor: '#0722fa',
+    backgroundColor: '#fe9b18',
     borderRadius: wp(14),
     justifyContent: 'center',
     alignItems: 'center'
@@ -109,6 +119,21 @@ const styles = StyleSheet.create({
     fontSize: wp(3.5),
     color: 'white',
   },
+  header_second_line_text_container: {
+    marginTop: wp(1.2),
+    marginLeft: wp(5),
+    height: wp(28),
+    justifyContent: 'center',
+  },
+  header_second_line_text_title: {
+    padding: wp(0.5),
+    fontFamily: 'Montserrat-Regular',
+    fontSize: wp(4),
+    color: 'black',
+  },
+  bold: {
+    fontFamily: 'Montserrat-SemiBold'
+  }
 });
 
 export default HeaderMenu;

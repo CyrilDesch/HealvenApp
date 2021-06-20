@@ -15,8 +15,12 @@ const fetchTrack = dispatch => async() => {
   dispatch({ type: 'fetch_track', payload: response.data})
 };
 
-const createTrack = dispatch => async(locations, name) => {
-  await trackerApi.post('/tracks', {name, locations});
+const createTrack = () => async(locations, speedMoy, date) => {
+  try {
+    await trackerApi.post('/tracks', {locations, speedMoy, date});
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const { Context, Provider } = createDataContext(

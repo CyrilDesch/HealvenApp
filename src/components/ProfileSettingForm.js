@@ -109,7 +109,7 @@ const ProfileSettingForm = ({ showImage, showName, showDate, showGender, callbac
       : null}
 
       <Spacer multiple={2} />
-      <Pressable style={styles.buttonSubmit} onPress={async() => {
+      <Pressable disabled={inSubmit} style={styles.buttonSubmit} onPress={async() => {
         if(validForm()){
           setInSubmit(true);
           try {

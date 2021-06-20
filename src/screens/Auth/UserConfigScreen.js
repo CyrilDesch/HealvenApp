@@ -14,7 +14,7 @@ const UserConfigScreen = ({ navigation }) => {
            showName
            showDate
            showGender
-           callback={() => navigation.navigate('Home')}
+           callback={() => navigation.navigate('Main', {screen: 'Home'})}
         />
       </ScrollView>
     </View>

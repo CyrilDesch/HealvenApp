@@ -4,9 +4,6 @@ import SignupScreen from './src/screens/Auth/SignupScreen';
 import SigninScreen from './src/screens/Auth/SigninScreen';
 import UserConfigScreen from './src/screens/Auth/UserConfigScreen';
 import AccountScreen from './src/screens/AccountScreen';
-import TrackCreateScreen from './src/screens/TrackCreateScreen';
-import TrackDetailScreen from './src/screens/TrackDetailScreen';
-import TrackListScreen from './src/screens/TrackListScreen';
 import WaitAuthScreen from './src/screens/Auth/WaitAuthScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
@@ -76,18 +73,6 @@ const Main = () => {
       <MainStackNavigator.Screen 
         name="Account"
         component={AccountScreen}
-      />
-      <MainStackNavigator.Screen 
-        name="TrackList"
-        component={TrackListScreen}
-      />
-      <MainStackNavigator.Screen 
-        name="TrackDetail"
-        component={TrackDetailScreen}
-      />
-      <MainStackNavigator.Screen 
-        name="TrackCreate"
-        component={TrackCreateScreen}
       />
     </MainStackNavigator.Navigator>
   );

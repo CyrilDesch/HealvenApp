@@ -1,5 +1,6 @@
 import createDataContext from '../context/createDataContext';
-import trackerApi, { token, baseURL } from '../api/tracker';
+import trackerApi, { baseURL } from '../api/tracker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
 
 const userReducer = (state, action) => {
@@ -19,19 +20,22 @@ const saveUser = (dispatch) => (user) => {
 };
 
 const updateUser = (dispatch) => async(user) => {
-  if (user.idProfilImage != "" && user.idProfilImage) {
-    try {
-      const resp = await FileSystem.uploadAsync(
-        baseURL + '/image', 
-        user.idProfilImage, 
-        {
-          uploadType: FileSystem.FileSystemUploadType.MULTIPART,
-          httpMethod: 'POST',
-          headers: { 'Authorization': `Bearer ${token}` },
-          fieldName: 'file'
-        }
-      );
-      user.idProfilImage = resp.body;
+  if (user.idProfilImage && user.idProfilImage != "") {
+    try { 
+      const token = await AsyncStorage.getItem('token');
+      if(token && token != ""){
+        const resp = await FileSystem.uploadAsync(
+          baseURL + '/image', 
+          user.idProfilImage, 
+          {
+            uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+            httpMethod: 'POST',
+            headers: { 'Authorization': `Bearer ${token}` },
+            fieldName: 'file'
+          }
+        );
+        user.idProfilImage = resp.body;
+      }
     } catch (err) {
       console.log(err);
     }

@@ -41,7 +41,8 @@
     "react-native-screens": "~3.0.0",
     "react-native-web": "^0.16.2",
     "tslib": "^2.2.0",
-    "react-native-svg": "12.1.0"
+    "react-native-svg": "12.1.0",
+    "expo-sensors": "~10.1.2"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
