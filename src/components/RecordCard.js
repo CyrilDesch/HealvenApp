@@ -8,12 +8,12 @@ import Counter from './simpleComponents/Counter';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-const RecordCard = () => {
+const RecordCard = ({ style }) => {
   const { startRecording, stopRecording, reset, state: { locations, recordDate, speed, speedMoy } } = useContext(LocationContext);
   const { createTrack } = useContext(TrackContext);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateAnim = useRef(new Animated.Value(0)).current;
-  const rotateAnim = useRef(new Animated.Value(46)).current;
+  const rotateAnim = useRef(new Animated.Value(0.127)).current;
   const [pause, setPause] = useState(true);
   const [show, setShow] = useState(false);
   const [sec, setSec] = useState(0);
@@ -27,10 +27,10 @@ const RecordCard = () => {
 
   const startStopWatch = () => {
     timer.current = setInterval(() => {
-      rotateAnim.setValue(46);
+      rotateAnim.setValue(0.127);
       Animated.spring(rotateAnim,
         {
-          toValue: 225,
+          toValue: 0.625,
           speed: 10,
           bounciness: 1000000,
           useNativeDriver: true
@@ -55,10 +55,11 @@ const RecordCard = () => {
   }
 
   const handleStop = () => {
-    if(locations.length > 0)
-      createTrack(locations, speedMoy, recordDate);
+    stopRecording();
+    if(distance.current > 20)
+      createTrack(locations, Math.round(speedMoy*10)/10, recordDate, new Date(sec * 1000), Math.round(distance.current));
     record.current = false;
-    rotateAnim.setValue(46);
+    rotateAnim.setValue(0.127);
     distance.current = 0;
     reset();
     clearInterval(timer.current);
@@ -106,7 +107,7 @@ const RecordCard = () => {
   }, [record.current]);
 
   return(
-    <View style={styles.container}>
+    <View style={[style, styles.container]}>
       <Counter 
         style={styles.leftColumn} 
         text={new Date(sec * 1000).toISOString().substr(11, 8)}
@@ -138,22 +139,9 @@ const RecordCard = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: wp(90),
-    height: hp(30),
-    marginBottom: wp(8),
-    backgroundColor: '#fe9b18',
-    borderRadius: wp(5),
     flexDirection: "row",
     justifyContent: 'space-around',
     alignItems: 'center',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.39,
-    shadowRadius: 8.30,
-    elevation: 13,
   },
   title: {
     fontFamily: 'Montserrat-Medium',
@@ -163,7 +151,7 @@ const styles = StyleSheet.create({
   },
   middleColumn: {
     height: wp(39),
-    width: wp(15),
+    width: wp(19),
     alignItems: 'center'
   },
   leftColumn: {

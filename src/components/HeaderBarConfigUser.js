@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const HeaderBar = ({ title, onPressBack }) => {
+const HeaderBarConfigUser = ({ title, onPressBack }) => {
 
   return(
     <View style={styles.container}>
@@ -15,15 +15,16 @@ const HeaderBar = ({ title, onPressBack }) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: wp(5),
     height: hp(9),
     flexDirection: 'row',
     alignItems: 'center',
   },
   title: {
     position: 'absolute',
-    fontSize: wp(5),
+    fontSize: wp(6),
     width: wp(100),
-    color: '#002851',
+    color: 'black',
     fontFamily: 'Montserrat-Bold',
     textAlign: 'center'
   },
@@ -33,4 +34,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HeaderBar;
+export default HeaderBarConfigUser;

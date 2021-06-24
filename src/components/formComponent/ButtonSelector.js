@@ -18,10 +18,10 @@ const ButtonSelector = ({ state, setState, label, value, text, error, disable })
             text={text[0]}
             disableBuiltInState
             isChecked={state == value[0]}
-            fillColor="#13385e"
+            fillColor="black"
             disabled
-            unfillColor="#FFFFFF"
-            iconStyle={{borderColor: '#13385e'}}
+            unfillColor="#f6f6f6"
+            iconStyle={{borderColor: 'black'}}
             textStyle={styles.text}
           />
         </Pressable>
@@ -34,10 +34,10 @@ const ButtonSelector = ({ state, setState, label, value, text, error, disable })
             text={text[1]}
             disableBuiltInState
             isChecked={state == value[1]}
-            fillColor="#13385e"
+            fillColor="black"
             disabled
-            unfillColor="#FFFFFF"
-            iconStyle={{borderColor: '#13385e'}}
+            unfillColor="#f6f6f6"
+            iconStyle={{borderColor: 'black'}}
             textStyle={styles.text}
           />
         </Pressable>
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     borderRadius: wp(2),
     borderWidth: 1,
     borderColor: 'gray',
-    backgroundColor: '#f1f3fd',
+    backgroundColor: '#f6f6f6',
   },
   text: {
     textDecorationLine: 'none',
     fontSize: wp(4),
     fontFamily: 'Montserrat-Medium',
-    color: '#13385e',
+    color: 'black',
   },
   container: {
     width: wp(80),

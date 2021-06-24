@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Context as AuthContext } from './src/context/AuthContext';
+import { Context as UserContext } from './src/context/UserContext';
+import { Image, View } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import SignupScreen from './src/screens/Auth/SignupScreen';
 import SigninScreen from './src/screens/Auth/SigninScreen';
 import UserConfigScreen from './src/screens/Auth/UserConfigScreen';
-import AccountScreen from './src/screens/AccountScreen';
-import WaitAuthScreen from './src/screens/Auth/WaitAuthScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { navigationRef } from './src/navigationRef';
@@ -15,7 +17,7 @@ import { Provider as UserProvider } from './src/context/UserContext';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar } from 'expo-status-bar';
+import TrackMapScreen from './src/screens/TrackMapScreen';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -32,66 +34,61 @@ const fetchFonts = () => {
 };
 
 const AppStackNavigator = createStackNavigator();
-const AuthStackNavigator = createStackNavigator();
-const MainStackNavigator = createStackNavigator();
-
-const Auth = () => {
-  return(
-    <AuthStackNavigator.Navigator
-      screenOptions={{headerShown: false, gestureEnabled: false}}
-      
-    >
-      <AuthStackNavigator.Screen
-        name="WaitAuth"
-        component={WaitAuthScreen}
-      />
-      <AuthStackNavigator.Screen
-        name="Signup"
-        component={SignupScreen}
-      />
-      <AuthStackNavigator.Screen
-        name="Signin"
-        component={SigninScreen}
-      />
-      <AuthStackNavigator.Screen
-        name="UserConfig"
-        component={UserConfigScreen}
-      />
-    </AuthStackNavigator.Navigator>
-  );
-}
-
-const Main = () => {
-  return(
-    <MainStackNavigator.Navigator
-      screenOptions={{headerShown: false, gestureEnabled: false}}
-    >
-      <MainStackNavigator.Screen 
-        name="Home"
-        component={HomeScreen}
-      />
-      <MainStackNavigator.Screen 
-        name="Account"
-        component={AccountScreen}
-      />
-    </MainStackNavigator.Navigator>
-  );
-}
 
 const App = () => {
+
+  const { tryLocalSignIn, state: auth } = useContext(AuthContext);
+  const { saveUser } = useContext(UserContext);
+
+  useEffect(() => {
+    tryLocalSignIn({ saveUser });
+  }, []);
+
+  if(!auth.verifToken){
+    return (
+      <View style={{backgroundColor: "#fe9b18"}}>
+        <Image style={{ height: hp(100), width: wp(100) }} source={require("./assets/splash.png")} />
+      </View>
+    )
+  }
+
+  console.log(auth)
+
   return(
     <NavigationContainer ref={navigationRef}>
       <AppStackNavigator.Navigator
         screenOptions={{headerShown: false, gestureEnabled: false}}
       >
-        <AppStackNavigator.Screen
-          name="Auth"
-          component={Auth}
-        />
-        <AppStackNavigator.Screen
-          name="Main"
-          component={Main}
-        />
+        {auth.token ? (
+          auth.valid ? (
+            <>
+              <AppStackNavigator.Screen 
+                name="Home"
+                component={HomeScreen}
+                options={{headerShown: false}}
+              />
+              <AppStackNavigator.Screen
+                name="TrackMap"
+                component={TrackMapScreen}
+              />
+            </>
+          ) : (
+            <AppStackNavigator.Screen
+              name="UserConfig"
+              component={UserConfigScreen}
+            />
+        )) : (
+          <>
+            <AppStackNavigator.Screen
+              name="Signup"
+              component={SignupScreen}
+            />
+            <AppStackNavigator.Screen
+              name="Signin"
+              component={SigninScreen}
+            />
+          </>
+        )}
       </AppStackNavigator.Navigator>
     </NavigationContainer>
   );

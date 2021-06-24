@@ -6,9 +6,13 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 const Counter = ({ style, animValue, text, iconName }) => {
+  const spin = animValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg']
+  })
   return(
     <View style={style}>
-      <AnimatedSvg rotation={animValue} origin={[200, 200]} style={styles.circleRotating} viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+      <AnimatedSvg style={[styles.circleRotating, { transform: [{rotate: spin}]}]} origin={[200, 200]} viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
         <Circle
           stroke="#ffffffb3" cx="200" cy="200" r="175" strokeDasharray="274" strokeWidth="10" strokeLinecap="round" fill="none" 
         />

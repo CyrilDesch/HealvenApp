@@ -11,17 +11,17 @@ const SigninScreen = () => {
   const { state, signin, removeError } = useContext(AuthContext);
 
   return (
-    <KeyboardAwareScrollView 
-      contentContainerStyle={styles.container}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      enableAutomaticScroll
-      enableOnAndroid
-      scrollEnabled={false}>
+    <KeyboardAwareScrollView
+    contentContainerStyle={styles.container}
+    extraScrollHeight={hp(3)}
+    enableAutomaticScroll
+    enableOnAndroid>
       <AuthForm 
         errorMessage={state.error} 
-        headerMessage="Connexion" 
+        headerMessage="CONNEXION" 
         submitText="Se connecter"
         onSubmitAuth={signin}
+        cleaner={removeError}
       />
       <Spacer />
       <NavLink
@@ -33,22 +33,12 @@ const SigninScreen = () => {
   );
 };
 
-SigninScreen.navigationOptions = () => {
-  return {
-    headerShown: false,
-  };
-};
-
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    padding: hp(10),
+    height: hp(100),
+    backgroundColor: '#fe9b18',
+    paddingTop: hp(10)
   },
-  changeScreenLink : {
-    textAlign: 'center',
-    fontSize: 15,
-    color: 'dodgerblue'
-  }
 });
 
 export default SigninScreen;

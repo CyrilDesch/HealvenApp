@@ -1,41 +1,32 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ProfileSettingForm from '../../components/ProfileSettingForm';
-import HeaderBar from '../../components/HeaderBar';
+import HeaderBarConfigUser from '../../components/HeaderBarConfigUser';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const UserConfigScreen = ({ navigation }) => {
+const UserConfigScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <HeaderBar title="Information" />
-        <ProfileSettingForm  
-           showImage
-           showName
-           showDate
-           showGender
-           callback={() => navigation.navigate('Main', {screen: 'Home'})}
+        <HeaderBarConfigUser title="Information" />
+        <ProfileSettingForm
+          showWeight
+          showImage
+          showName
+          showDate
+          showGender
         />
       </ScrollView>
     </View>
   );
 };
 
-UserConfigScreen.navigationOptions = () => {
-  return {
-    headerShown: false,
-  };
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fe9b18'
   },
-  changeScreenLink : {
-    textAlign: 'center',
-    fontSize: 15,
-    color: 'dodgerblue'
-  }
 });
 
 export default UserConfigScreen;

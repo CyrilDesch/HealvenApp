@@ -51,5 +51,5 @@ const updateUser = (dispatch) => async(user) => {
 export const { Provider, Context } = createDataContext(
   userReducer,
   { saveUser, updateUser },
-  { email: '', name: '', dateOfBirth: null, gender: '', idProfilImage: '' }
+  { pseudo: '', name: '', dateOfBirth: null, gender: '', idProfilImage: '', poids: 0 }
 );

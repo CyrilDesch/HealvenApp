@@ -46,7 +46,7 @@ const ChangeImageProfile = ({ defaultImageId, image, setImage, disable }) => {
       : null }
 
       <View style={styles.iconCameraContainer}>
-        <Icon name="camera" size={wp(5)} color="#8598f9" />
+        <Icon name="camera" size={wp(5)} color="#fe9b18" />
       </View>
     </Pressable>
   );
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     borderRadius: wp(3),
     borderColor: 'white',
     borderWidth: wp(0.2),
-    backgroundColor: '#4e6a86',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -90,14 +89,14 @@ const styles = StyleSheet.create({
     borderRadius: wp(3),
     borderColor: 'white',
     borderWidth: wp(0.4),
-    backgroundColor: '#d9dffc',
+    backgroundColor: '#ffe2bc',
   },
   iconCameraContainer: {
     position: 'absolute',
     right: -wp(3.5),
     bottom: -wp(3.5),
     padding: wp(1.5),
-    backgroundColor: '#d9dffc',
+    backgroundColor: '#ffe2bc',
     borderRadius: wp(2),
     borderColor: 'white',
     borderWidth: wp(0.6),
