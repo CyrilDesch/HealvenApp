@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cyrild69.healven"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +27,9 @@
       },
       "package": "com.cyrild69.healven",
       "config": {
-        "googleMaps": { "apiKey": "AIzaSyA4nx_ewGXF16hUl2eeIP6Nj8wqeN5D7Ls" }   
+        "googleMaps": {
+          "apiKey": "AIzaSyA4nx_ewGXF16hUl2eeIP6Nj8wqeN5D7Ls"
+        }
       }
     }
   }
