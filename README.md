@@ -1,6 +1,7 @@
 # Healven
 ## Objectif du projet
-Healven est une application mobile qui permet de garder un suivi de vos entrainements de course pour pouvoir visualiser vos performances, de différentes façons, dans le temps pour permettre de vous améliorer. Elle vous permet d'enregistrer vos courses et d'accéder aux informations facilement par la suite.
+Healven est une application mobile qui permet de garder un suivi de vos entrainements de course pour pouvoir visualiser vos performances dans le temps, de différentes façons,  pour permettre de vous améliorer.   
+Elle vous permet d'enregistrer vos parcours de courses et les différentes mesures en lien. Puis, par la suite, permet d'accéder à ces informations facilement.
 
 ##### Mesure:
 - Distance (tracé sur carte)
