@@ -15,7 +15,6 @@ const HeaderMenu = () => {
   const { state: user } = useContext(UserContext);
   const navigation = useNavigation();
   const { state: data } = useContext(TrackContext);
-  console.log(user.idProfilImage);
   const { signout } = useContext(AuthContext);
 
   return(
@@ -50,7 +49,7 @@ const HeaderMenu = () => {
           <Text style={styles.header_second_line_walk_count_title2}>kg</Text>
         </View>
         <View style={styles.header_second_line_text_container}>
-          <Text style={styles.header_second_line_text_title}>{data.length > 0 ? "Dernière course:" : ""}<Text style={styles.bold}>{data.length > 0 ? new Date(data[0].date).toLocaleDateString() : "A l'entrainement !"}</Text></Text>
+          <Text style={styles.header_second_line_text_title}>{data.length > 0 ? "Dernière course: " : ""}<Text style={styles.bold}>{data.length > 0 ? new Date(data[0].date).toLocaleDateString() : "A l'entrainement !"}</Text></Text>
         </View>
       </View>
     </View>

@@ -8,7 +8,6 @@ import { Context as LocationContext } from '../context/LocationContext';
 import useLocation from '../hooks/useLocation';
 import Spacer from '../components/Spacer';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { StatusBar } from 'expo-status-bar';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
@@ -69,7 +68,6 @@ const HomeScreen = ({ navigation }) => {
           </>
         }  
       </Pressable>
-      <StatusBar style="dark" />
     </View>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import generalStyles from '../../generalStyles';
 
-const Input = ({ style, label, value, onChangeText, secureTextEntry, error, disable, onSubmit, keyboardType }) => {
+const Input = ({ style, label, value, onChangeText, secureTextEntry, error, disable, onSubmit, keyboardType, autoCapitalize }) => {
   return(
     <View>
       <Text style={generalStyles.text}>{label}</Text>
@@ -11,7 +11,7 @@ const Input = ({ style, label, value, onChangeText, secureTextEntry, error, disa
         style={[generalStyles.textInput, style, disable ? generalStyles.disable : null]} 
         onChangeText={onChangeText}
         value={value}
-        autoCapitalize="none"
+        autoCapitalize={autoCapitalize}
         autoCorrect={false}
         keyboardType={keyboardType}
         secureTextEntry={secureTextEntry}
@@ -31,7 +31,8 @@ Input.defaultProps = {
   error: '',
   disable: false,
   onSubmit: null, 
-  keyboardType: "default"
+  keyboardType: "default",
+  autoCapitalize: "none"
 };
 
 export default Input;

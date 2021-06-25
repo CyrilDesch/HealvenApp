@@ -30,7 +30,8 @@
         "googleMaps": {
           "apiKey": "AIzaSyA4nx_ewGXF16hUl2eeIP6Nj8wqeN5D7Ls"
         }
-      }
+      },
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "ACCESS_FINE_LOCATION"]
     }
   }
 }

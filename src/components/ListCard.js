@@ -3,6 +3,7 @@ import { Animated, View, Text, StyleSheet, Pressable } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import IconFoundation from 'react-native-vector-icons/Foundation';
 import IconAndText from './simpleComponents/IconAndText';
 import {Context as TrackContext} from '../context/TrackContext';
 import calorieCalc from '../calorieCalc';
@@ -74,7 +75,7 @@ const ListCard = ({ style }) => {
     }
   }, [listShow]);
 
-  const indicatorSize = wholeWidth - 10 > visibleWidth ? visibleWidth * visibleWidth / wholeWidth : 0;
+  const indicatorSize = wholeWidth > visibleWidth ? visibleWidth * visibleWidth / wholeWidth : 0;
 
   const difference = visibleWidth > indicatorSize ? visibleWidth - indicatorSize : 1
 
@@ -102,54 +103,61 @@ const ListCard = ({ style }) => {
           style={styles.list}
           keyExtractor={(item) => item._id }
           data={state}
+          ListHeaderComponent={() => state.lenght === 0 ? <Text style={[styles.itemText, {width: wp(90), fontSize: wp(5)}]}>Aucune donnée</Text> : null}
           ItemSeparatorComponent={() => <View style={styles.separator} /> }
           renderItem={({item}) =>
             <Pressable style={styles.itemContainer} onPress={() => navigation.navigate('TrackMap', item.locations)}>
-            <Text style={styles.itemTitle}>DATE</Text>
-            <Text style={styles.itemText}>{`${new Date(item.date).toLocaleDateString()}\n${new Date(item.date).toLocaleTimeString()}`}</Text>
-            <Text style={styles.itemTitle}>INFO</Text>
-            <View>
-              <IconAndText 
-                iconName="walk-outline" 
-                iconSize={5}
-                text={`${item.distance} m`}
-                style={styles.itemDescContainer}
-              />
-              <IconAndText 
-                iconName="timer-outline" 
-                iconSize={5}
-                text={new Date(item.time).toISOString().substr(11, 8)}
-                style={styles.itemDescContainer}
-              />
-              <IconAndText 
-                iconName="speedometer-outline"
-                iconSize={5}
-                text={`${item.speedMoy} km/h`}
-                style={styles.itemDescContainer}
-              />
-              <IconAndText 
-                iconName="flame"
-                iconSize={5}
-                text={`${calorieCalc(item.speedMoy, (new Date(item.time).getTime() / (1000 * 60)), poids)} Kcal`}
-                style={styles.itemDescContainer}
-              />
+              <Text style={styles.itemTitle}>DATE</Text>
+              <Text style={styles.itemText}>{`${new Date(item.date).toLocaleDateString()}\n${new Date(item.date).toLocaleTimeString()}`}</Text>
+              <Text style={styles.itemTitle}>INFO</Text>
+              <View>
+                <IconAndText 
+                  iconName="walk-outline" 
+                  iconSize={5}
+                  text={`${item.distance} m`}
+                  style={styles.itemDescContainer}
+                />
+                <IconAndText 
+                  iconName="timer-outline" 
+                  iconSize={5}
+                  text={new Date(item.time).toISOString().substr(11, 8)}
+                  style={styles.itemDescContainer}
+                />
+                <IconAndText 
+                  iconName="speedometer-outline"
+                  iconSize={5}
+                  text={`${item.speedMoy} km/h`}
+                  style={styles.itemDescContainer}
+                />
+                <IconAndText 
+                  iconName="flame"
+                  iconSize={5}
+                  text={`${calorieCalc(item.speedMoy, (new Date(item.time).getTime() / (1000 * 60)), poids)} Kcal`}
+                  style={styles.itemDescContainer}
+                />
+              </View>
+              <IconFoundation style={styles.iconMap} name="map" size={wp(5)} color="white" />
+            </Pressable>            
+          }
+        />
+        {indicatorSize != 0
+          ?
+            <View style={{width: wp(80)}}>
+              <Animated.View
+                style={[styles.indicator, {
+                  width: indicatorSize-wp(10),
+                  transform: [{
+                    translateX: Animated.multiply(indicator, visibleWidth / (wholeWidth + 0.0001)).interpolate({
+                      inputRange: [0, difference],
+                      outputRange: [0, difference],
+                      extrapolate: 'clamp'
+                    })
+                  }]
+                }]} />
             </View>
-          </Pressable>            
+          :
+          null
         }
-      />
-      <View style={{width: wp(80)}}>
-        <Animated.View 
-          style={[styles.indicator, {
-            width: indicatorSize-wp(10),
-            transform: [{
-              translateX: Animated.multiply(indicator, visibleWidth / (wholeWidth + 0.0001)).interpolate({
-                inputRange: [0, difference],
-                outputRange: [0, difference],
-                extrapolate: 'clamp'
-              })
-            }]
-          }]} />
-      </View>
     </Animated.View>
   </Pressable>
   )
@@ -185,11 +193,12 @@ const styles = StyleSheet.create({
     flexGrow: 0,
   },
   separator: {
+    width: 0,
     borderLeftWidth: wp(0.2),
     borderLeftColor: 'white'
   },
   itemContainer: {
-    width: wp(30),
+    width: wp(29.94),
     padding: wp(1),
     alignItems: 'center',
   },
@@ -207,6 +216,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Montserrat-Medium',
   }, 
+  iconMap: {
+    position: "absolute",
+    top: wp(2),
+    left: wp(2)
+  },
   indicator: {
     height: wp(1),
     backgroundColor: 'black',

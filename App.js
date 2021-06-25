@@ -52,8 +52,6 @@ const App = () => {
     )
   }
 
-  console.log(auth)
-
   return(
     <NavigationContainer ref={navigationRef}>
       <AppStackNavigator.Navigator
@@ -65,11 +63,11 @@ const App = () => {
               <AppStackNavigator.Screen 
                 name="Home"
                 component={HomeScreen}
-                options={{headerShown: false}}
               />
               <AppStackNavigator.Screen
                 name="TrackMap"
                 component={TrackMapScreen}
+                options={{headerShown: true}}
               />
             </>
           ) : (

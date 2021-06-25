@@ -75,6 +75,7 @@ const ProfileSettingForm = ({ showImage, showName, showDate, showGender, showWei
             disable={inSubmit} 
             style={generalStyles.input} 
             label="Prénom / Nom" 
+            autoCapitalize="words"
             value={name} 
             onChangeText={setName} 
             error={errorName}

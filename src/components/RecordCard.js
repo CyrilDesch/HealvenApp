@@ -56,7 +56,7 @@ const RecordCard = ({ style }) => {
 
   const handleStop = () => {
     stopRecording();
-    if(distance.current > 20)
+    if(distance.current > 1)
       createTrack(locations, Math.round(speedMoy*10)/10, recordDate, new Date(sec * 1000), Math.round(distance.current));
     record.current = false;
     rotateAnim.setValue(0.127);
