@@ -10,21 +10,21 @@ Healven est une application mobile qui permet de garder un suivi de vos entraine
 
 ## Suivi de développement:
 Méthodologie agile (non-indiqué mais je suis revenu très souvent sur des points précédents)
-> #1 - Création de l'API et de la base de donnée. 
-Mise en place de 2 types de requêtes: une pour gérer l'utilisateur et une seconde pour gérer les enregistrements.
-Mise en place d'une authentification sécurisé (hash et salt).
+> #1 - Création de l'API et de la base de donnée.  
+Mise en place de 2 types de requêtes: une pour gérer l'utilisateur et une seconde pour gérer les enregistrements.  
+Mise en place d'une authentification sécurisé (hash et salt).  
 
-> #2 - Création de l'application
-Création de l'interface d'authentification et de configuration d'utilisateur.
-Relier l'application à l'API.
-Création de l'interface principal et d'enregistrement.
-Mise en place du système de localisation.
-Mise en place de la carte.
-Mise en place de l'affichage des enregistrements déjà réalisés.
-Intégration d'un design.
-Animation des différents composants.
-Correction des bugs.
-Optimisation du code.
+> #2 - Création de l'application  
+Création de l'interface d'authentification et de configuration d'utilisateur.  
+Relier l'application à l'API.  
+Création de l'interface principal et d'enregistrement.  
+Mise en place du système de localisation.  
+Mise en place de la carte.  
+Mise en place de l'affichage des enregistrements déjà réalisés.  
+Intégration d'un design.  
+Animation des différents composants.  
+Correction des bugs.  
+Optimisation du code.  
 
 
 ## Point de vue technique
