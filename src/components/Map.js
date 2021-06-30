@@ -7,7 +7,7 @@ import {default as IconFontAwesome5} from 'react-native-vector-icons/FontAwesome
 
 const delta = 0.003;
 
-const Map = ({ show }) => {
+const Map = ({ show, scrollRef }) => {
   const { state: { currentLocation, locations } } = useContext(LocationContext);
   const [showRecenter, setShowRecenter] = useState(false);
   const map = useRef(null);
@@ -54,15 +54,21 @@ const Map = ({ show }) => {
     }).start();
   }, [currentLocation]);
 
-  if(!show){
-    Animated.timing(heightValue, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: false
-    }).start();
-  } else {
-    heightValue.setValue(hp(100));
-  }
+  useEffect(() => {
+    if(!show){
+      scrollRef.setNativeProps({scrollEnabled: false})
+      scrollRef.scrollTo({y: 0})
+      Animated.timing(heightValue, {
+        toValue: 0,
+        duration: 200,
+        delay: 10,
+        useNativeDriver: false
+      }).start(() => scrollRef.setNativeProps({scrollEnabled: true}));
+    } else {
+      heightValue.setValue(hp(100));
+      setTimeout(() => scrollRef.scrollToEnd(), 1)
+    }
+  }, [show])
 
   return(
     <Animated.View style={{height: heightValue}}>
@@ -71,8 +77,8 @@ const Map = ({ show }) => {
         provider="google"
         style={{
           width: wp(100),
-          height: hp(100)-wp(45),
-          marginTop: wp(45),
+          height: hp(100)-wp(35),
+          marginTop: wp(35),
           alignSelf: 'center'
         }}
         initialRegion={{...currentLocation.coords, longitudeDelta: delta, latitudeDelta: delta}}

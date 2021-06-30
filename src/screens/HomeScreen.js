@@ -16,27 +16,10 @@ const HomeScreen = ({ navigation }) => {
   const locationCallback = useCallback((location) => {
     addLocation(location, recording);
   }, [recording]);
-  const [err] = useLocation(navigation.isFocused && recording || !currentLocation || currentLocation && currentLocation.coords.speed > 1 || animation, locationCallback);
+  const [err] = useLocation(navigation.isFocused && recording || !currentLocation || animation, locationCallback);
   const scrollView = useRef(null);
   const [animation, setAnimation] = useState(false);
   const translation = useRef(new Animated.Value(0)).current;
-  
-
-  const callbackMap = () => {
-    if(!animation) {
-      setAnimation(true);
-    } else {
-      setAnimation(false);
-    }
-  }
-  
-  useEffect(() => {
-    if(animation){
-      scrollView.current.scrollToEnd();
-    } else {
-      scrollView.current.scrollTo({y: 0});
-    }
-  }, [animation]);
   
   return(
     <View>
@@ -54,10 +37,10 @@ const HomeScreen = ({ navigation }) => {
           <ListCard style={styles.cardContainer} />
         </View>
         {currentLocation ?
-          <Map show={animation} />
+          <Map show={animation} scrollRef={scrollView.current} />
         : null}
       </Animated.ScrollView>
-      <Pressable style={styles.header_third_line_button} onPress={callbackMap}>
+      <Pressable style={styles.header_third_line_button} onPress={() => setAnimation(!animation)}>
         {/* Bouton header ici pour bonne affichage*/}
         {animation ? 
           <Icon name="home" color="white" size={wp(8)} />

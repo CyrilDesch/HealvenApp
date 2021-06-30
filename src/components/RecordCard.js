@@ -21,8 +21,11 @@ const RecordCard = ({ style }) => {
   const timer = useRef(null);
   const distance = useRef(0);
 
+
   useEffect(() => {
-    distance.current = distance.current + speed;
+    if(!pause){
+      distance.current = distance.current + (speed / 3.6);
+    }
   }, [speed])
 
   const startStopWatch = () => {
@@ -56,7 +59,7 @@ const RecordCard = ({ style }) => {
 
   const handleStop = () => {
     stopRecording();
-    if(distance.current > 1)
+    if(distance.current > 20)
       createTrack(locations, Math.round(speedMoy*10)/10, recordDate, new Date(sec * 1000), Math.round(distance.current));
     record.current = false;
     rotateAnim.setValue(0.127);

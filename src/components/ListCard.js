@@ -103,7 +103,7 @@ const ListCard = ({ style }) => {
           style={styles.list}
           keyExtractor={(item) => item._id }
           data={state}
-          ListHeaderComponent={() => state.lenght === 0 ? <Text style={[styles.itemText, {width: wp(90), fontSize: wp(5)}]}>Aucune donnée</Text> : null}
+          ListHeaderComponent={() => state.length === 0 ? <Text style={[styles.itemText, {width: wp(90), fontSize: wp(5)}]}>Aucune donnée</Text> : null}
           ItemSeparatorComponent={() => <View style={styles.separator} /> }
           renderItem={({item}) =>
             <Pressable style={styles.itemContainer} onPress={() => navigation.navigate('TrackMap', item.locations)}>
