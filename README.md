@@ -1,7 +1,7 @@
 # Healven (sans Google Fit API)
-Projet expérimental
+##### Projet expérimental
+##### Présentation: https://www.youtube.com/watch?v=_2ZOnqaXYk4
 ![alt text](https://i.ibb.co/SPBtzVN/present.png)
-https://www.youtube.com/watch?v=_2ZOnqaXYk4
 ## Objectif du projet
 Healven est une application mobile qui permet de garder un suivi de vos entrainements de course pour pouvoir visualiser vos performances dans le temps, de différentes façons,  pour permettre de vous améliorer.   
 Elle vous permet d'enregistrer vos parcours de courses et les différentes mesures en lien. Puis, par la suite, permet d'accéder à ces informations facilement.
