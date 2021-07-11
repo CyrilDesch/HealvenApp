@@ -55,7 +55,7 @@ const Map = ({ show, scrollRef }) => {
   }, [currentLocation]);
 
   useEffect(() => {
-    if(!show){
+    if(!show && scrollRef){
       scrollRef.setNativeProps({scrollEnabled: false})
       scrollRef.scrollTo({y: 0})
       Animated.timing(heightValue, {
@@ -64,7 +64,7 @@ const Map = ({ show, scrollRef }) => {
         delay: 10,
         useNativeDriver: false
       }).start(() => scrollRef.setNativeProps({scrollEnabled: true}));
-    } else {
+    } else if (scrollRef) {
       heightValue.setValue(hp(100));
       setTimeout(() => scrollRef.scrollToEnd(), 1)
     }

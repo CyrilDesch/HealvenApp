@@ -26,7 +26,7 @@ const RecordCard = ({ style }) => {
     if(!pause){
       distance.current = distance.current + (speed / 3.6);
     }
-  }, [speed])
+  }, [locations])
 
   const startStopWatch = () => {
     timer.current = setInterval(() => {

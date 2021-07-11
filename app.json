@@ -2,7 +2,7 @@
   "expo": {
     "name": "Healven",
     "slug": "Healven",
-    "version": "1.2.1",
+    "version": "1.2.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -21,7 +21,7 @@
       "bundleIdentifier": "com.cyrild69.healven"
     },
     "android": {
-      "versionCode": 5,
+      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#fe9b18"

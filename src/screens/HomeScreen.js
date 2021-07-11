@@ -16,9 +16,9 @@ const HomeScreen = ({ navigation }) => {
   const locationCallback = useCallback((location) => {
     addLocation(location, recording);
   }, [recording]);
+  const [animation, setAnimation] = useState(false);
   const [err] = useLocation(navigation.isFocused && recording || !currentLocation || animation, locationCallback);
   const scrollView = useRef(null);
-  const [animation, setAnimation] = useState(false);
   const translation = useRef(new Animated.Value(0)).current;
   
   return(
