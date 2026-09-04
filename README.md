@@ -1,44 +1,56 @@
-# Healven (sans Google Fit API)
-##### Projet expérimental
-##### Présentation: https://www.youtube.com/watch?v=_2ZOnqaXYk4
-![alt text](https://i.ibb.co/pQFRTFQ/healven.jpg)
-## Objectif du projet
-Healven est une application mobile qui permet de garder un suivi de vos entrainements de course pour pouvoir visualiser vos performances dans le temps, de différentes façons,  pour permettre de vous améliorer.   
-Elle vous permet d'enregistrer vos parcours de courses et les différentes mesures en lien. Puis, par la suite, permet d'accéder à ces informations facilement.
+# Healven
 
-##### Mesure:
+##### Application de suivi de course à pied
+![alt text](https://i.ibb.co/pQFRTFQ/healven.jpg)
+
+## Objectif du projet
+Healven est une application mobile qui permet de garder un suivi de vos entrainements de course pour pouvoir visualiser vos performances dans le temps, de différentes façons, pour permettre de vous améliorer.
+Elle vous permet d'enregistrer vos parcours de courses et les différentes mesures en lien, puis d'accéder à ces informations facilement.
+
+##### Mesure :
 - Distance (tracé sur carte)
 - Temps
 - Vitesse
-- Calorie
-
-## Suivi de développement:
-Méthodologie agile (non-indiqué mais je suis revenu très souvent sur des points précédents)
-> #1 - Création de l'API et de la base de donnée.  
-Mise en place de 2 types de requêtes: une pour gérer l'utilisateur et une seconde pour gérer les enregistrements.  
-Mise en place d'une authentification sécurisé (hash et salt).  
-
-> #2 - Création de l'application  
-Création de l'interface d'authentification et de configuration d'utilisateur.  
-Relier l'application à l'API.  
-Création de l'interface principal et d'enregistrement.  
-Mise en place du système de localisation.  
-Mise en place de la carte.  
-Mise en place de l'affichage des enregistrements déjà réalisés.  
-Intégration d'un design.  
-Animation des différents composants.  
-Correction des bugs.  
-Optimisation du code.  
-
+- Calories
 
 ## Point de vue technique
-#### Front-End:
-> Utilisation de React Native pour réaliser l'application car il est l'outil le plus mature dans le développement mobile cross-platform.
 
-> Utilisation d'Expo simplifiant le build de l'application et l'importation de librairies. Expo est aujourd'hui plus que complet et est une solution plus que viable.
+L'application a été entièrement réécrite (migration Expo SDK 41 → 57) et est aujourd'hui **100 % locale** : plus de backend, plus de compte, toutes les données (profil, historique des parcours) sont stockées sur l'appareil.
 
-> Utilisation de Google Maps pour l'affichage de la carte. Google Maps est une solution très efficace, assez simple à mettre en place, et personnalisable. Elle est de plus gratuite pour un simple affichage de carte.
-#### Back-End:
-> Création d'une API à l'aide d'Express JS. Une solution très interessante et efficace, avec plus de liberté que Firebase.
+- **React Native** + **Expo SDK 57** (nouvelle architecture, Hermes)
+- **Expo Router** (navigation par fichiers) en **TypeScript**
+- **react-native-maps** (Google Maps) pour le tracé GPS
+- **AsyncStorage** pour la persistance locale (profil utilisateur + historique des parcours)
+- **expo-file-system** pour la photo de profil
+- **expo-location** pour le suivi GPS pendant l'enregistrement d'un parcours
 
-> Utilisation de MongoDB pour stocker les données.
+### Structure
+
+```
+src/
+  app/            # écrans (Expo Router) : accueil, onboarding, carte d'un parcours
+  components/      # composants UI
+  context/         # état applicatif (profil, historique des parcours, position GPS live)
+  hooks/           # hooks (suivi GPS)
+  lib/             # logique pure (calcul des calories, stockage local, style de carte)
+  styles/          # styles partagés
+```
+
+### Démarrer le projet
+
+```bash
+npm install
+npm run android   # build + lance l'app sur un émulateur/appareil Android
+```
+
+La carte nécessite une clé d'API Google Maps valide (Maps SDK for Android activé) dans un fichier `.env` non commité — voir `.env.example`.
+
+### Qualité
+
+```bash
+npm run typecheck   # tsc --noEmit
+npm run lint         # expo lint
+npm test             # jest
+```
+
+Une CI GitHub Actions (`.github/workflows/ci.yml`) exécute ces trois commandes sur chaque push/PR.
