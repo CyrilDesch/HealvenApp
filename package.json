@@ -1,7 +1,7 @@
 {
   "name": "healven",
   "main": "expo-router/entry",
-  "version": "1.2.3",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "expo start",

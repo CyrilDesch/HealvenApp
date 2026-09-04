@@ -13,14 +13,14 @@ export default {
   expo: {
     name: 'Healven',
     slug: 'Healven',
-    version: '1.2.3',
+    version: '0.0.1',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     scheme: 'healven',
     userInterfaceStyle: 'light',
     android: {
       package: 'com.cyrild69.healven2',
-      versionCode: 0,
+      versionCode: 1,
       adaptiveIcon: {
         foregroundImage: './assets/images/android-icon-foreground.png',
         backgroundColor: '#fe9b18',
@@ -72,6 +72,11 @@ export default {
     experiments: {
       typedRoutes: true,
       reactCompiler: true,
+    },
+    extra: {
+      eas: {
+        projectId: '5f2b134e-c10e-4b52-9970-491ae7be2703',
+      },
     },
   },
 };
